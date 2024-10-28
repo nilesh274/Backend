@@ -6,18 +6,18 @@ class ApiError extends Error{
         statusCode, 
         message = "Something went wrong",
         errors = [],
-        statck = ""
+        stack = ""
     ){
         super(message)     // It is confirm to overwrite the message super is in build function 
         this.statusCode = statusCode
         this.data = null
-        this.message =message
+        this.message = message
         this.success = false
         this.errors = errors
 
 
-        if(statck){
-            this.stack = statck
+        if(stack){
+            this.stack = stack
         }else{
             Error.captureStackTrace(this, this.constructor)
         }

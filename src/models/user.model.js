@@ -49,6 +49,9 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
+
+// middleware
+// pre is type hook 
 userSchema.pre("save", async function(next) {
   if(!this.isModified("password")) return next();
 
@@ -57,6 +60,8 @@ userSchema.pre("save", async function(next) {
   next();
 })
 
+
+// checking that your password is correct or not but building isPasswordCorrect methods
 userSchema.methods.isPasswordCorrect = async function(password){
   return await bcrypt.compare(password, this.password)
 }
