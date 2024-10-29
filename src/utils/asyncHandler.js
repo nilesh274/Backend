@@ -4,7 +4,7 @@ The return function will wrap with Promise if there is error in Promise we use c
 */
 
 const asyncHandler = (requestHandler) => {
-    (req, res, next) => {
+    return (req, res, next) => {
         Promise.resolve(requestHandler(req, res, next)).catch((err) => next(err))
     }
 }
