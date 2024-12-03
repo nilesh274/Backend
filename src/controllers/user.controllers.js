@@ -4,7 +4,6 @@ import { User } from "../models/user.model.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken";
-import req, { is } from "express/lib/request.js";
 import mongoose from "mongoose";
 
 const generateAccessAndRefreshToken = async (userId) => {
@@ -197,8 +196,8 @@ const logoutUser = asyncHandler(async (req, res) => {
   await User.findByIdAndUpdate(
     req.user._id,
     {
-      $set: {
-        refreshToken: undefined,
+      $unset: {
+        refreshToken: 1
       },
     },
     {
@@ -267,10 +266,20 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 });
 
 const changeCurrentPassword = asyncHandler(async (req, res) => {
+  // console.log(req);
+  // console.log("/n");
+  // console.log(req.body);
+
   const { oldPassword, newPassword } = req.body;
 
   const user = await User.findById(req.user?._id);
-  const isPasswordCorrect = await isPasswordCorrect(oldPassword);
+
+  if(!user){
+    throw new ApiError(404, "User not found")
+  }
+  // console.log(oldPassword + " oldpassword");
+  // console.log(newPassword + " newpassword");
+  const isPasswordCorrect = await user.isPasswordCorrect(oldPassword);
 
   if (!isPasswordCorrect) {
     throw new ApiError(400, "Invalid old password");

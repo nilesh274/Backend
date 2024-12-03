@@ -10,6 +10,7 @@ import {
   updateUserCoverImage,
   getUserChannelProfile,
   getWtachHistory,
+  refreshAccessToken,
 } from "../controllers/user.controllers.js";
 import { upload } from "../middlewares/multer.middlewares.js";
 import { verifyJWT } from "../middlewares/auth.middlewares.js";
