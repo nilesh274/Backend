@@ -1,6 +1,3 @@
-// nodemon is use reload the server if there is change in index.js file
-// require('dotenv').config({path: './env'})
-
 import dotenv from "dotenv";
 import connectDB from "./db/index.js";
 import {app} from "./app.js"

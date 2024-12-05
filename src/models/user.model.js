@@ -1,5 +1,4 @@
 import mongoose, { model, Schema } from "mongoose";
-// import jwt from "json-web-token";
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 
@@ -62,7 +61,6 @@ userSchema.pre("save", async function(next) {
 })
 
 
-// checking that your password is correct or not but building isPasswordCorrect methods
 userSchema.methods.isPasswordCorrect = async function(password){
   // console.log(password);
   // console.log(this.password);

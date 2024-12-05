@@ -383,23 +383,20 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
 });
 
 const getUserChannelProfile = asyncHandler(async (req, res) => {
-  const { username } = req.params; // geting the username from url not from body
+  const { username } = req.params; 
 
   if (!username?.trim()) {
     throw new ApiError(400, "username is missing");
   }
 
-  // User.find({username})  // it is also right but very expensive
 
   const channel = await User.aggregate([
-    // 1st pipeline
     {
       $match: {
         username: username?.toLowerCase(),
       },
     },
 
-    // 2nd pipeline
     {
       $lookup: {
         from: "subscriptions",
@@ -409,7 +406,6 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
       },
     },
 
-    // 3rd pipeline
     {
       $lookup: {
         from: "subscriptions",
@@ -419,7 +415,6 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
       },
     },
 
-    // 4th pipeline
     {
       $addFields: {
         subscribersCount: {
@@ -438,7 +433,6 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
       },
     },
 
-    // 5th pipeline
     {
       $project: {
         fullname: 1,
