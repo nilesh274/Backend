@@ -20,6 +20,7 @@ import healthCheckRouter from './routes/healthcheck.routes.js';
 import video from './routes/video.routes.js'
 import playlist from './routes/playlist.routes.js'
 import subscription from './routes/subscription.routes.js'
+import tweet from './routes/tweet.routes.js'
 
 
 //routes declaration
@@ -28,5 +29,6 @@ app.use("/api/v1/healthcheck", healthCheckRouter)
 app.use("/api/v1/video", video)
 app.use("/api/v1/playlist", playlist)
 app.use("/api/v1/subscription", subscription)
+app.use("/api/v1/tweet", tweet)
 
 export {app};
