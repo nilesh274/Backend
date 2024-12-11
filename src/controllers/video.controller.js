@@ -73,6 +73,10 @@ const publishAVideo = asyncHandler(async (req, res) => {
     const videoLocalPath = req.files?.videofile[0].path;
     const thumbnailLocalPath = req.files?.thumbnail[0].path;
 
+    if((title) => title.trim() === "") {
+        throw new ApiError(400, "title field are required");
+    }
+    
     if (!videoLocalPath) {
         throw new ApiError(401, "video is required");
     }
@@ -213,7 +217,7 @@ const deleteVideo = asyncHandler(async (req, res) => {
 
     return res
         .status(200)
-        .json(new ApiResponse(200, {}, "video delete successfully"));
+        .json(new ApiResponse(200, {}, "video deleted successfully"));
 })
 
 const togglePublishStatus = asyncHandler(async (req, res) => {

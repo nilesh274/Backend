@@ -6,7 +6,7 @@ import { verifyJWT } from "../middlewares/auth.middlewares.js";
 const router = Router();
 router.use(verifyJWT);
 
-router.route('/publishAVideo').post( 
+router.route('/').post( 
     upload.fields([
         {
             name: "videofile",
